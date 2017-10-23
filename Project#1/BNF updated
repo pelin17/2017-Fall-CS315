@@ -1,46 +1,90 @@
-<program> -> class <class_identifier> {<block>}
-<class_identifier> -> <upper_case_letter> <string_chars>
-<upper_case_letter> -> [A-Z]
-<string_chars> -> <char> | <char> <string_chars>
-<char> 	-> <letter> | <digit>
-<letter> 	-> <upper_case_letter> | <lower_case_letter>
-<lower_case_letter> -> [a-z]
-<digit> 	-> [0-9]
-<block> 	-> [<constant_assignment> | <function_assignment> | <statements> ] {<block>}
-<constant_assignment> -> <assign_const> | <assign_const>							<assign_const>
-<function_assignment> -> <assign_function> | <assign_funtion>						<function_assignment>
-<statements> 	-> <statement> | <statement> <statements>
-<statement> 	-> <var_assignment> | <reassign_var> | <conditional_statement> | <function_calls> | <loop_statement> | <input_statement> | <output_statement> |
-<comment_statement> -> <empty>
-<comment_statement> -> <single_line_comment> |								<multiline_comment>
-<single_line_comment> -> //<string_chars>
-<multiline_comment> -> /*<string_chars>*/
-<assign_const> -> const <constant_identifier> <assignment_op>							<compound_proposition>
-<constant_identifier> -> “<string_chars>”
-<assignment_operator> -> =
-<compound_proposition> -> <compound_proposition> <connective>						<compound_proposition> | <negation>						<compound_proposition> | <proposition>						| <truth_value> |										(<compound_proposition>)
-<connective> 	-> <and_connective> | <or_connective> |						<implies_connective> | <ifandonlyif_connective>
-<negation> 	-> !
-<proposition> 	-> <constant_identifier> <variable_idenfier>
-<truth_value>	-> true_false
-<assign_function> -> func <return_type> < function_identifier>					(<parameter>){<statement>								<return_statement>}
-<return_type> 	-> void | <truth_value>
-<function_identifier> -> <string_chars>
-<parameters>	-> <parameter> | <parameter>, <parameters> |					<empty>
-<parameter> 	-> <compound_proposition> | <var_identifier>
-<var_assignment> -> <assign_var> | <assign_var> |								<var_assignment>
-<assign_var> 	-> var <var_identifier> <assignment_op> <compound_proposition> <var_identifier> <string chars>
-<re_assign_var> -> <var_identifier> <assignment_op> <compound_proposition>
-<conditional_statement> -> <if_statement>
-<if_statement> -> if (<logic_expr>) <stmts> | if (<logic_expr>)				<stmts> else <stmts>
-<logic_expr> 	-> <compound_proposition> <composition>						<compound_proposition> |	<compound_proposition >
-<comparison> 	-> == | !=
-<function_call> -> <function_identifier> (<parameters>)
-<loop_statement> -> <while_loop>
-<while_loop> 	-> while (<logic_expr>) {statements}
-<empty> ->
-<return_statement> -> return <compound_proposition> | return					<empty>
-<input_statement> -> input:	
-<output_statement> -> output: <output_strings>
-<output_strings> -> <string_chars> + <output_strings> |						<string_chars> <compound_proposition> +						<output_strings> <compound_proposition>
+<program>  class <class_identifier> {<block>}
+<class_identifier>  <upper_case_letter> <string_chars>
+<upper_case_letter>  [A-Z]
+<string_char>  <char> | <char> <string_char>
+<char> 	 <letter> | <digit>
+<space>   
+<letter>   <upper_case_letter> | <lower_case_letter>
+<lower_case_letter>  [a-z]
+<digit> 	 [0-9]
+<block> 	 [<constant_assignment> | <function_assignment> | <statements> ] {<block>}
+<constant_assignment>  <assign_const> | <assign_const>							<constant_assignment>
+<function_assignment>  <assign_function> | <assign_funtion>						<function_assignment>
+<statements> 	 <statement> | <statement> <statements>
+<statement> 	 <var_assignment> | <re_assign_var> | <conditional_statement> | <function_calls> | <loop_statement> | <input_statement> | <output_statement> | <empty>
+<comment_statement>  <empty> | <single_line_comment> |						<multiline_comment>
+<single_line_comment>  //<const_char>
+<assign_const>  const <constant_identifier> <assignment_op>							<compound_proposition>
+<constant_identifier>  “<const_char>”
+<const_char>  <string_char> <const_char> | <space>						<const_char>
+<assignment_operator>  =
+<compound_proposition>  <compound_proposition> <connective>						<compound_proposition> | <negation>						<compound_proposition> | <proposition>						| <truth_value> | <empty>								(<compound_proposition>)
+<connective> 	 <and_connective> | <or_connective> |						<implies_connective> | <ifandonlyif_connective>
+<negation> 	 !
+<proposition> 	 <constant_identifier> <var_idenfier>
+<truth_value>	 true | false
+<assign_function>  func <return_type> <function_identifier>					(<parameter>){<statement>								<return_statement>}
+<return_type> 	 void | <truth_value>
+<function_identifier>  <string_chars>
+<parameters>	 <parameter> | <parameter>, <parameters> |					<empty>
+<parameter> 	 <compound_proposition> | var <var_identifier>
+<var_assignment>  <assign_var> |	<assign_var> <var_assignment>
+<assign_var> 	 var <var_identifier> <assignment_op> <compound_proposition>; 
+<var_identifier>  <string chars>
+<re_assign_var>  <var_identifier> <assignment_op>						<compound_proposition>
+<conditional_statement>  <if_statement>
+<if_statement>  if (<logic_expr>) <stmts> | if (<logic_expr>)				<statements> else <statements>
+<logic_expr> 	 <compound_proposition> <composition>						<compound_proposition> |	<compound_proposition >
+<comparison> 	 == | !=
+<function_call>  <function_identifier> (<parameters>)
+<loop_statement>  <while_loop>
+<while_loop> 	 while (<logic_expr>) {statements}
+<empty>  ;
+<return_statement>  return <compound_proposition> | return					<empty>
+<input_statement>  input:	
+<output_statement>  output: ( <output_strings> )
+<output_strings>  <string_chars> + <output_strings> |						<string_chars> <compound_proposition> +						<output_strings> <compound_proposition>
 
+
+Non-Terminals:
+<program> = 	is the start symbol of our programming language, it represents a complete program. <program> always defines a class.
+<class_identifier> = is the name given to a class. It will always start with an upper case letter. class is a reserved word. 
+<upper_case_letter> = represents any of the letters of the English alphabet in upper case.
+<lower_case_letter> = defines any of the letters of the English alphabet in lower case.
+<string_char> = defines a series of characters or words. It can either be a character or a word with numbers or letters.
+<char> = represents a character, it can be a digit or a letter.
+<space> = represents space.
+<letter> = represents a letter of the English alphabet, it could be an upper case letter or a lower case letter.
+<digit> = represents any digit from 0-9.
+<block> = represents a block of code inside a class. It can either be a block of code (for recursion), a declaration of a constant type, the code of a function declaration or it can be a series of statements.
+<constant_assignment> = represents the declaration of a constant type. To make it recursive, it can either be a single declaration or a series of declaration of constants. 
+<function_assignment> = represents the code of a function. To make it recursive, it can either be a single function or a series of function declarations, one after another.
+<statements> = represents a series of ‘statement’s. To make it recursive, it can either be a single statement or a series of statements, one after another.
+<statement> = represents a single statement. It can be the declaration of a variable of any type, the reassignment of a value to an already declared variable, a conditional statement, a function call, a loop declaration or an statement that asks for input or gives output.
+<comment_statement> = represents a comment. It could be empty, a single line comment or a multiple line comment.
+<single_line_comment> = represents a comment that is written on one line.
+<multiline_comment> = represents a comment that is written on more than one line.
+<assign_const> = represents the assignment of a constant. const is a reserved word. It can be assigned any value which will be immutable.
+<constant_identifier> = represents the name given to a constant while its declaration. It will be a string.
+<const_char> = represents a string name given to a constant. It could be a string or a  
+<assignment_operator> = represents the operator “=”. It is used to assign values to variable or constant types.
+<compound_proposition> = represents a constant/variable type or the result of operations between two variable/constant types. It can be the result of a operation between two compound propositions, the negation of a compound proposition, a boolean value, or compound proposition (for recursion).
+<connective> = represents a operation done on two variables/constants. It can be an AND(&), OR(|), implies(->) or if and only if(<->) operation.
+<negation> = represents the negation operation, which negates the value of any variable.
+<proposition> = represents a variable or a constant.
+<truth_value> = represents the boolean values of true and false 
+<assign_function> = represents the declaration of a function. func is a reserved word. It has a return type, a name, parameters in parenthesis, and function statements and return statement in curly brackets.
+<return_type> = represents the return type of a function. it can be void(nothing) or a truth value.
+<function_identifier> = represents the name given to a function while its declaration. It will be a string.
+<parameters> = represents a series of parameters in the prototype of a function. It can be a single parameter or a series of parameters for recursion.
+<parameter> = represents a single parameter in the prototype of a function. It can be a variable or a constant.
+<var_assignment> = represents the assignment of a variable. It can be a single variable assignment or multiple variable assignments.
+<assign_var> = represents the declaration of a variable. var is a reserved word. It can be assigned a compound proposition.
+<var_identifier> = represents the name given to a variable while its declaration. It will be a string.
+<re_assign_var> = represents the reassignment of an already declared variable.
+<conditional_statement> = represents a conditional if-statement.
+<if_statement> = represents a conditional if statement. It is either going to be an if condition or an if-else condition.
+<logic_expr> = represents the comparison between two compound propositions.
+<comparison> = represents the logic comparison of “==” or ”!=”.
+ <function_call> = represents a call to a function, it is the name of the function and parameters in parenthesis.
+<loop_statement> = represents a loop declaration. It will be only a while loop.
