@@ -1,0 +1,78 @@
+program: CLASS CLASS_IDENTIFIER LEFTCURLY block RIGHTCURLY 
+| CLASS CLASS_IDENTIFIER LEFTCURLY block main RIGHTCURLY
+block: constant_assignment block
+| constant_assignment
+| predicate_assignment block 
+| predicate_assignment
+| statements block
+| statements
+constant_assignment: assign_const SEMICOLON 
+| assign_const SEMICOLON	constant_assignment
+predicate_assignment: assign_predicate SEMICOLON
+| assign_predicate SEMICOLON predicate_assignment
+statements: statement 
+| statement statements
+statement: var_assignment 
+| re_assign_var 
+| conditional_statement 
+| predicate_calls 
+| loop_statement 
+| input_statement 
+| output_statement
+| var_declaration 
+| const_declaration 
+| array_assignment 
+| array_declaration 
+| SEMICOLON
+comment_statement: SINGLELINECOMMENT 
+assign_const: CONSTANT CONSTANT_IDENTIFIER assignment_op compound_proposition
+assignment_op: ASSIGN
+var_declaration: VARIABLE IDENTIFIER SEMICOLON
+const_declaration: CONSTANT CONSTANT_IDENTIFIER SEMICOLON
+compound_proposition: compound_proposition connective compound_proposition 
+| negation compound_proposition 
+| proposition 
+| truth_value 
+| empty
+| LEFTPARANTHESIS compound_proposition RIGHTPARANTHESIS
+connective: AND 
+| OR 
+| IMPLIES 
+| IFANDONLYIF
+negation	: NEGATION
+proposition: CONSTANT_IDENTIFIER IDENTIFIER
+truth_value: TRUE 
+| FALSE
+assign_predicate: PREDICATE truth_value IDENTIFIER LEFTPARANTHESIS parameter RIGHTPARANTHESIS LEFTCURLY statement return_statement RIGHTCURLY
+parameters: parameter 
+| parameter COMMA parameters
+parameter: compound_proposition 
+| VARIABLE IDENTIFIER
+var_assignment: assign_var SEMICOLON 
+| assign_var SEMICOLON var_assignment
+assign_var: VARIABLE IDENTIFIER assignment_op compound_proposition;
+re_assign_var: IDENTIFIER assignment_op	compound_proposition;
+conditional_statement: if_statement
+if_statement: IF LEFTPARANTHESIS logic_expr RIGHTPARANTHESIS statements
+| IF LEFTPARANTHESIS logic_expr RIGHTPARANTHESIS statements ELSE statements
+logic_expr: compound_proposition comparison compound_proposition
+| compound_proposition 
+array_declaration: ARRAY truth_value IDENTIFIER LEFTSQUARE RIGHTSQUARE SEMICOLON
+comparison: EQUALS
+| NOTEQUAL
+predicate_call: IDENTIFIER LEFTPARANTHESIS parameters RIGHTPARANTHESIS SEMICOLON
+loop_statement: while_loop
+while_loop: WHILE LEFTPARANTHESIS logic_expr RIGHTPARANTHESIS LEFTCURLY statements RIGHTCURLY
+return_statement: RETURN truth_value SEMICOLON 
+| RETURN SEMICOLON
+input_statement: INPUT	
+output_statement: OUTPUT LEFTPARANTHESIS output_strings RIGHTPARANTHESIS SEMICOLON
+output_string: IDENTIFIER + output_string
+| VARIABLE + output_string
+| CONSTANT + output_string
+| IDENTIFIER
+| VARIABLE
+| CONSTANT
+main: truth_value MAIN LEFTPARANTHESIS RIGHTPARANTHESIS LEFTCURLY constant_assignment statements RIGHTCURLY
+array_assignment: ARRAY truth_value IDENTIFIER LEFTSQUARE array_size RIGHTSQUARE assignment_operator LEFTSQUARE truth_value LEFTPARANTHESIS COMMA truth_value RIGHTPARANTHESIS RIGHTSQUARE SEMICOLON
+array_size: DIGIT LEFTPARANTHESIS DIGIT RIGHTPARANTHESIS
