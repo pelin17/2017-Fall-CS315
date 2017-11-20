@@ -1,0 +1,48 @@
+class Test1{
+      //checking constant, variable assignment and declaration and compound proposition
+      const "const1" = true;
+      const "const2" = false;
+      var var1;
+      var1 = "const1" & "const2";
+      var var2 = true;
+
+      //checking constant assignment, predicate assignment, predicate paratemeters, conditional statement and return statment
+      predicate truthvalue temp(var1, var2){
+                if("const1" == true){
+                        var1 = true;
+                }
+                else{
+                        var2 = true;
+                }
+                return true;
+      }
+
+      //testing function calls
+      temp(var1);
+
+       //testing connectives
+      var p = false;
+
+      var a = "const1" & p;
+      var b = "const1" | p;
+      var c = "const1" -> p;
+      var d = "const1" <-> p;
+      var e = !"const1";
+
+      //testing variable reassignment, while loop and input-output
+      p = true;
+
+      while(p != true){
+              p = true;
+      }
+
+      p = input:;
+      output:(p);
+
+      // checking array assignemnt
+      array truthvalue temp[] = [true];
+      
+      main(){
+        var var1 = false;
+      }
+}
